@@ -26,7 +26,7 @@ enum Page: Identifiable, Equatable {
     var description: String {
         switch self {
         case .welcome:
-            return "welcome description"
+            return "Grow your snapchat following"
         case .connectToSnap:
             return "connectToSnap description"
         case .verification:
@@ -34,25 +34,23 @@ enum Page: Identifiable, Equatable {
         }
     }
     
-    var image: String {
+    var image: String? {
         switch self {
         case .welcome:
             return "logo"
-        case .connectToSnap:
-            return "logo"
-        case .verification:
-            return "logo"
+        default:
+            return nil
         }
     }
     
     var bodyView: some View {
         switch self {
         case .welcome:
-            return red
+            return AnyView(EmptyView())
         case .connectToSnap:
-            return red
+            return AnyView(red)
         case .verification:
-            return red
+            return AnyView(yellow)
         }
     }
     
@@ -86,5 +84,31 @@ enum Page: Identifiable, Equatable {
 public var red: some View {
     ZStack {
         Color.red
+        
+        VStack(spacing: 8) {
+            Text("Connect to snapchat")
+            Text("Verify bitmoji")
+            Text("Verify age??")
+        }
+    }
+}
+
+@ViewBuilder
+public var green: some View {
+    ZStack {
+        Color.green
+    }
+}
+
+@ViewBuilder
+public var yellow: some View {
+    ZStack {
+        Color.yellow
+        
+        VStack(spacing: 8) {
+            Text("Make profile")
+            Text("Edit name?")
+            Text("Select interests")
+        }
     }
 }

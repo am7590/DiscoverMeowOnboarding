@@ -12,19 +12,26 @@ struct PageView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Image("\(page.image)")
-                .resizable()
-                .scaledToFit()
-                .padding()
-                .cornerRadius(30)
-                .cornerRadius(10)
-                .padding()
+           
+            if let image = page.image {
+                Image("\(image)")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                    .cornerRadius(30)
+                    .cornerRadius(10)
+                    .padding()
+            }
             
             Text(page.title)
-                .font(.title)
+                .font(.title.bold())
+            
             Text(page.description)
-                .font(.subheadline)
+                .font(.title3)
                 .frame(width: 300)
+            
+            page.bodyView
+                .padding()
             
             Spacer()
         }
