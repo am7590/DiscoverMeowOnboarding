@@ -8,42 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var pageIndex = 0
-    private let pages: [Page] = DummyData.onboardingViews
-    private let dotAppearance = UIPageControl.appearance()
+    @ObservedObject var viewModel: OnboardingViewModel
     
     var body: some View {
-        TabView(selection: $pageIndex) {
-            ForEach(pages) { page in
+        TabView(selection: $viewModel.pageIndex) {
+            ForEach(viewModel.pages) { page in
                 VStack {
                     Spacer()
                     PageView(page: page)
                     Spacer()
                     OnboardingArrowView(arrow: page.arrowConfig)
                         .onTapGesture {
-                            incrementPage()
+                            viewModel.incrementPage()
                         }
                     Spacer()
                 }
                 .tag(page.tag)
             }
         }
-        .animation(.easeInOut, value: pageIndex)
+        .animation(.default, value: viewModel.pageIndex)
         .indexViewStyle(.page(backgroundDisplayMode: .interactive))
         .tabViewStyle(PageTabViewStyle())
         .onAppear {
-            dotAppearance.currentPageIndicatorTintColor = .black
-            dotAppearance.pageIndicatorTintColor = .gray
+            viewModel.setupDotAppearance()
         }
-    }
-    
-    func incrementPage() {
-        pageIndex += 1
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: OnboardingViewModel())
     }
 }
