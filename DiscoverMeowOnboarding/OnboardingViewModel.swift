@@ -21,4 +21,8 @@ import SwiftUI
     func incrementPage() {
         self.pageIndex += 1
     }
+    
+    func decrementPage() {
+        self.pageIndex -= 1
+    }
 }

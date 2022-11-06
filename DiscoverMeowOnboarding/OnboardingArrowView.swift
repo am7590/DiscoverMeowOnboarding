@@ -12,15 +12,21 @@ enum OnboardingArrow {
 }
 
 struct OnboardingArrowView: View {
-    
+    @ObservedObject var viewModel: OnboardingViewModel
     var arrow: OnboardingArrow
     
     var body: some View {
         switch arrow {
         case .right:
-            rightArrow
+            HStack {
+                Spacer()
+                rightArrow
+            }
         case .left:
-            leftArrow
+            HStack {
+                leftArrow
+                Spacer()
+            }
         case .both:
             bothArrows
         }
@@ -36,30 +42,28 @@ extension OnboardingArrowView {
     
     @ViewBuilder
     public var rightArrow: some View {
-        HStack {
-            Spacer()
-            Image(systemName: Constants.rightArrow)
-                .onboardingButton()
-        }
+        Image(systemName: Constants.rightArrow)
+            .onboardingButton()
+            .onTapGesture {
+                viewModel.incrementPage()
+            }
     }
     
     @ViewBuilder
     public var leftArrow: some View {
-        HStack {
-            Image(systemName: Constants.leftArrow)
-                .onboardingButton()
-            Spacer()
-        }
+        Image(systemName: Constants.leftArrow)
+            .onboardingButton()
+            .onTapGesture {
+                viewModel.decrementPage()
+            }
     }
     
     @ViewBuilder
     public var bothArrows: some View {
         HStack {
-            Image(systemName: Constants.leftArrow)
-                .onboardingButton()
+            leftArrow
             Spacer()
-            Image(systemName: Constants.rightArrow)
-                .onboardingButton()
+            rightArrow
         }
     }
 }

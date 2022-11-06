@@ -17,7 +17,7 @@ struct ContentView: View {
                     Spacer()
                     PageView(page: page)
                     Spacer()
-                    OnboardingArrowView(arrow: page.arrowConfig)
+                    OnboardingArrowView(viewModel: viewModel, arrow: page.arrowConfig)
                         .onTapGesture {
                             viewModel.incrementPage()
                         }
